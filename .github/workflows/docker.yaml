@@ -57,7 +57,7 @@ jobs:
       run: |
         docker login -u $ALIYUN_REGISTRY_USER -p $ALIYUN_REGISTRY_PASSWORD $ALIYUN_REGISTRY
 
-        for image in images/*; do
+        for it in images/*; do
             # 数据预处理,判断镜像是否重名
             declare -A duplicate_images
             declare -A temp_map
@@ -96,7 +96,7 @@ jobs:
                     # 存镜像的命名空间
                     temp_map[$image_name]=$name_space
                 fi       
-            done < $image
+            done < $it
 
             while IFS= read -r line || [ -n "$line" ]; do
                 # 忽略空行与注释
@@ -152,5 +152,5 @@ jobs:
                 echo "=============================================================================="
                 df -hT
                 echo "=============================================================================="     
-            done < $image
+            done < $it
         done
