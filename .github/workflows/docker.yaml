@@ -53,17 +53,11 @@ jobs:
     - name: Docker Setup Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: test
-      run: |
-        for image in "images/*"; do
-            echo $image
-        done
-
     - name: Build and push image Aliyun
       run: |
         docker login -u $ALIYUN_REGISTRY_USER -p $ALIYUN_REGISTRY_PASSWORD $ALIYUN_REGISTRY
 
-        for image in "images/*"; do
+        for image in images/*; do
             # 数据预处理,判断镜像是否重名
             declare -A duplicate_images
             declare -A temp_map
@@ -158,6 +152,5 @@ jobs:
                 echo "=============================================================================="
                 df -hT
                 echo "=============================================================================="     
-
             done < $image
         done
