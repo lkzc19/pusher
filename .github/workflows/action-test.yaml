@@ -18,4 +18,4 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: pull
       run: |
-        docker pull ghcr.io/lkzc19/echo.gin:latest
+        docker pull ghcr.io/lkzc19/loafer.java:latest
