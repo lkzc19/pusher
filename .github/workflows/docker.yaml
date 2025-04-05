@@ -16,6 +16,9 @@ jobs:
   pp:
     name: Pull & Push
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
     steps:
     # 查看磁盘空间
     - name: Before freeing up disk space
