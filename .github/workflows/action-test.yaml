@@ -1,0 +1,12 @@
+name: Action Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Pull & Push
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+      docker pull ghcr.io/lkzc19/echo.gin:latest
