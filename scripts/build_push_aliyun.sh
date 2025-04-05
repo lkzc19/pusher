@@ -18,7 +18,7 @@ for it in images/*; do
         name_space=$(echo "$image" | awk -F'/' '{if (NF==3) print $2; else if (NF==2) print $1; else print ""}')
         image_name=$(echo "$image_name_tag" | awk -F':' '{print $1}')
         
-        if [[ -n "${temp_map[$image_name]}" && "${temp_map[$image_name]}" != "${name_space}_" ]]; then
+        if [[ -n "${temp_map[$image_name]:-}" && "${temp_map[$image_name]:-}" != "${name_space}_" ]]; then
             duplicate_images[$image_name]="true"
         else
             temp_map[$image_name]="${name_space}_"
@@ -39,7 +39,7 @@ for it in images/*; do
 
         # 构建新镜像名称
         name_space_prefix=""
-        [[ -n "${duplicate_images[$image_name]}" && -n "$name_space" ]] && name_space_prefix="${name_space}_"
+        [[ -n "${duplicate_images[$image_name]:-}" && -n "$name_space" ]] && name_space_prefix="${name_space}_"
         
         space_name=$(basename "$it" .txt)
         new_image="$ALIYUN_REGISTRY/$space_name/${platform_prefix}${name_space_prefix}${image_name_tag}"
