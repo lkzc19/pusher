@@ -1,9 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-# Docker 登录认证
-docker login -u "$ALIYUN_REGISTRY_USER" -p "$ALIYUN_REGISTRY_PASSWORD" "$ALIYUN_REGISTRY"
-
 # 遍历镜像定义文件
 # 函数定义前置
 check_image_duplicates() {
@@ -95,23 +92,6 @@ parse_image_info() {
     echo "local name_space='$name_space'; local image_name='$image_name';"
 }
 
-# 统一函数定义
-check_image_duplicates() {
-    local file="$1"
-    declare -A temp_map
-    while IFS= read -r line || [ -n "$line" ]; do
-        [[ -z "$line" ]] || [[ "$line" =~ ^[[:space:]]*# ]] && continue
-        
-        eval "$(parse_image_info "$line")"
-        
-        if [[ -n "${temp_map[$image_name]:-}" && "${temp_map[$image_name]:-}" != "${name_space}_" ]]; then
-            duplicate_images[$image_name]="true"
-        else
-            temp_map[$image_name]="${name_space}_"
-        fi
-    done < "$file"
-}
-
 process_image() {
     local line="$1"
     local it="$2"
@@ -145,6 +125,8 @@ parse_image_info() {
     echo "local name_space='$name_space'; local image_name='$image_name';"
 }
 
+# Docker 登录认证
+docker login -u "$ALIYUN_REGISTRY_USER" -p "$ALIYUN_REGISTRY_PASSWORD" "$ALIYUN_REGISTRY"
 # 主循环
 for it in images/*; do
     declare -A duplicate_images
