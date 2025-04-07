@@ -23,7 +23,7 @@ for it in images/*.txt; do
   done < "$it"
 done
 
-docker login -u "$GHRC_USER" -p "$GHRC_PASSWORD" "ghrc.io"
+docker login "ghcr.io" -u "$GHRC_USER" -p "$GHRC_PASSWORD"
 
 # 遍历并输出镜像映射
 echo -e "镜像映射列表：\n"

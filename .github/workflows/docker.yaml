@@ -11,8 +11,8 @@ env:
   ALIYUN_REGISTRY: "${{ vars.ALIYUN_REGISTRY }}"
   ALIYUN_REGISTRY_USER: "${{ vars.ALIYUN_REGISTRY_USER }}"
   ALIYUN_REGISTRY_PASSWORD: "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}"
-  GHRC_USER: "${{ github.actor }}"
-  GHRC_PASSWORD: "${{ secrets.GITHUB_TOKEN }}"
+  GHCR_USER: "${{ github.actor }}"
+  GHCR_PASSWORD: "${{ secrets.GITHUB_TOKEN }}"
 jobs:
   pp:
     name: Pull & Push
