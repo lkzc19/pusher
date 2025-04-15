@@ -1,0 +1,4 @@
+mysql:8.0.29
+redis:latest
+nginx:alpine-slim
+postgres:latest
